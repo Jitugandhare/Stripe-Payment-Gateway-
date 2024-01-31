@@ -1,33 +1,3 @@
-const express = require('express');
-
-
-// Load environment variables from .env file
-require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const route = express.Router();
-
-
-
-
-// Create intent for payment
-route.post('/create_intent', async (req, res) => {
-    try {
-        const intent = await stripe.paymentIntents.create({
-            amount: req.body.amount,
-            currency: req.body.currency || 'usd',
-            amount_capturable: req.body.capture,
-            
-        });
-
-        res.json({ client_secret: intent.client_secret });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-
-
-// Capture PaymentIntent route
 route.post('/capture_intent/:id', async (req, res) => {
     try {
         const intentId = req.params.id;
@@ -49,7 +19,18 @@ route.post('/capture_intent/:id', async (req, res) => {
     }
 });
 
-// Create refund route
+
+// Create a refund for the created intent
+// route.post('/create_refund/:id', async (req, res) => {
+//     try {
+//         const intentId = req.params.id;
+//         const refund = await stripe.refunds.create({ payment_intent: intentId });
+
+//         res.json({ refund });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 route.post('/create_refund/:id', async (req, res) => {
     try {
         const intentId = req.params.id;
@@ -75,18 +56,3 @@ route.post('/create_refund/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-
-
-// Get a List of all intents
-route.get('/get_intents', async (req, res) => {
-    try {
-        const intents = await stripe.paymentIntents.list();
-
-        res.json({ intents: intents.data });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-module.exports = { route }
