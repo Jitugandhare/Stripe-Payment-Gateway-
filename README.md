@@ -29,7 +29,5 @@ POST /api/v1/create_intent: Create a new payment intent. POST /api/v1/capture_in
 
 
 # Postman Link to the API
-https://str-gules.vercel.app/api/v1/get_intents
-https://str-gules.vercel.app/api/v1/capture_intent/pi_3OedSpSJxFXV8FMn0JLkSFfc
-https://str-gules.vercel.app/api/v1/create_intent/pi_3OedSpSJxFXV8FMn0JLkSFfc
-https://str-gules.vercel.app/api/v1/create_refund/pi_3OecOuSJxFXV8FMn13hL7GQF
+
+https://www.postman.com/planetary-meadow-590434/workspace/stripe-payment/collection/26068076-981e5e69-c904-4fbd-8c09-cf0c37462323?action=share&creator=26068076
